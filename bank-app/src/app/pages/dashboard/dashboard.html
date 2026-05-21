@@ -1,0 +1,70 @@
+<mat-toolbar color="primary" class="toolbar">
+  <mat-icon>account_balance</mat-icon>
+  <span class="toolbar-title">BankApi</span>
+  <span class="spacer"></span>
+  <span class="user-name">{{ userName }}</span>
+  <button mat-icon-button (click)="logout()" matTooltip="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="dashboard-container">
+  @if (loading) {
+    <div class="loading-center">
+      <mat-spinner diameter="60"></mat-spinner>
+      <p>Loading your account...</p>
+    </div>
+  } @else if (!account) {
+    <mat-card class="no-account-card">
+      <mat-card-content class="center-content">
+        <mat-icon class="big-icon">account_balance_wallet</mat-icon>
+        <h2>No Bank Account Yet</h2>
+        <p>Create your bank account to start managing your finances.</p>
+        <button mat-raised-button color="primary" (click)="createAccount()" [disabled]="creatingAccount" class="create-btn">
+          @if (creatingAccount) {
+            <mat-spinner diameter="20"></mat-spinner>
+          } @else {
+            <mat-icon>add</mat-icon> Create Bank Account
+          }
+        </button>
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <div class="balance-section">
+      <mat-card class="balance-card">
+        <mat-card-header>
+          <mat-card-subtitle>Account {{ account.accountNumber }}</mat-card-subtitle>
+          <mat-card-title class="balance-title">Current Balance</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="balance-amount">
+            {{ account.balance | currency:'USD':'symbol':'1.2-2' }}
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="actions-grid">
+      <mat-card class="action-card deposit" routerLink="/deposit">
+        <mat-card-content class="action-content">
+          <mat-icon class="action-icon">arrow_downward</mat-icon>
+          <span>Deposit</span>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="action-card withdraw" routerLink="/withdraw">
+        <mat-card-content class="action-content">
+          <mat-icon class="action-icon">arrow_upward</mat-icon>
+          <span>Withdraw</span>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="action-card statement" routerLink="/statement">
+        <mat-card-content class="action-content">
+          <mat-icon class="action-icon">receipt_long</mat-icon>
+          <span>Statement</span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</div>

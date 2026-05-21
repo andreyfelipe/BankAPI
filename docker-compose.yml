@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: bankapi-sqlserver
+    environment:
+      SA_PASSWORD: "BankApi@2024!"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - bankapi-network
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'BankApi@2024!' -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  api:
+    build:
+      context: .
+      dockerfile: src/BankApi.Api/Dockerfile
+    container_name: bankapi-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=BankApiDb;User Id=sa;Password=BankApi@2024!;TrustServerCertificate=True;
+      - JwtSettings__SecretKey=BankApiSuperSecretKey2024!MustBeAtLeast32Characters
+      - JwtSettings__Issuer=BankApi
+      - JwtSettings__Audience=BankApiClients
+      - JwtSettings__ExpirationInMinutes=60
+    ports:
+      - "5000:80"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - bankapi-network
+    restart: on-failure
+
+volumes:
+  sqlserver_data:
+
+networks:
+  bankapi-network:
+    driver: bridge

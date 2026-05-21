@@ -1,0 +1,70 @@
+.page-container {
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+.loading-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 0;
+  gap: 16px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.empty-card {
+  border-radius: 16px;
+  .empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px;
+    gap: 8px;
+    text-align: center;
+    .empty-icon {
+      font-size: 3rem;
+      width: 3rem;
+      height: 3rem;
+      opacity: 0.3;
+    }
+  }
+}
+
+.statement-card {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.transactions-table {
+  width: 100%;
+}
+
+.type-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  .chip-icon {
+    font-size: 0.9rem;
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  &.deposit {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  &.withdrawal {
+    background-color: #ffebee;
+    color: #c62828;
+  }
+}
+
+.amount-deposit { color: #2e7d32; font-weight: 600; }
+.amount-withdrawal { color: #c62828; font-weight: 600; }

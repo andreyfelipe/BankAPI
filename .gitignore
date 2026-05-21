@@ -1,0 +1,22 @@
+# .NET
+bin/
+obj/
+*.user
+.vs/
+logs/
+*.log
+
+# Node / Angular
+bank-app/node_modules/
+bank-app/dist/
+bank-app/.angular/
+
+# Docker volumes
+.data/
+
+# Environment secrets
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json
+
+.claude/

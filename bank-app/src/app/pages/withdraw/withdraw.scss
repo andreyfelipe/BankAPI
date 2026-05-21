@@ -1,0 +1,24 @@
+.page-container {
+  max-width: 500px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+.transaction-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.transaction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.full-width { width: 100%; }
+
+.submit-btn {
+  height: 48px;
+  font-size: 1rem;
+}
